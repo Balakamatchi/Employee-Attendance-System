@@ -15,7 +15,7 @@ function AttendanceHistory() {
     async function fetchData() {
       try {
         const [attendanceRes, employeesRes] = await Promise.all([
-          axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/attendance`),
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/all`),
           axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/employees`),
         ]);
 
