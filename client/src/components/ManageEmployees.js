@@ -14,7 +14,7 @@ function ManageEmployees() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/employees");
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/employees`);
       setEmployees(res.data);
     } catch {
       setError("Failed to fetch employee data.");
@@ -27,7 +27,7 @@ function ManageEmployees() {
     if (!window.confirm("Are you sure to delete this employee?")) return;
     setDeletingId(id);
     try {
-      await axios.delete(`http://localhost:5000/api/employees/${id}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/employees/${id}`);
       setEmployees(employees.filter((emp) => emp._id !== id));
     } catch {
       alert("Failed to delete employee.");

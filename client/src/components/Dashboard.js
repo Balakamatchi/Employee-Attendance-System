@@ -64,7 +64,7 @@ function Dashboard() {
       setIP(localIP);
 
       // ✅ Directly call POST /api/attendance
-      const res = await axios.post("http://localhost:5000/api/attendance", {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/attendance`, {
         employeeId,
         ip: localIP,
         status,

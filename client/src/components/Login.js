@@ -22,7 +22,7 @@ function Login() {
       }
     } else {
       try {
-        const res = await axios.post("http://localhost:5000/api/login", {
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login`, {
           employeeId: id,
           password,
         });
