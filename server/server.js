@@ -10,7 +10,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 // Enable CORS for frontend and localhost
 const allowedOrigins = [
-  "https://unrivaled-daffodil-496820.netlify.app/", 
+  "https://unrivaled-daffodil-496820.netlify.app", 
   "http://localhost:3000",
 ];
 
