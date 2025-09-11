@@ -16,7 +16,7 @@ if (!MONGO_URI) {
 
 // Enable CORS for frontend and localhost
 const allowedOrigins = [
-  "https://imaginative-chebakia-2cddfe.netlify.app",
+  "https://zesty-dango-4ec5ee.netlify.app",
   "http://localhost:3000",
 ];
 
