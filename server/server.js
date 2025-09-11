@@ -6,18 +6,24 @@ const routes = require("./routes/routes");
 
 const app = express();
 const PORT = process.env.PORT || 10000;
+
+// Ensure MONGO_URI exists
 const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI is not defined in .env");
+  process.exit(1);
+}
 
 // Enable CORS for frontend and localhost
 const allowedOrigins = [
-  "https://unrivaled-daffodil-496820.netlify.app", 
+  "https://imaginative-chebakia-2cddfe.netlify.app",
   "http://localhost:3000",
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin) return callback(null, true); // allow non-browser requests
-    if (allowedOrigins.indexOf(origin) === -1) {
+    if (!allowedOrigins.includes(origin)) {
       return callback(new Error("CORS policy does not allow this origin"), false);
     }
     return callback(null, true);
@@ -25,22 +31,19 @@ app.use(cors({
   credentials: true,
 }));
 
-// Parse JSON
+// Parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("✅ MongoDB connected"))
-.catch(err => console.error("❌ MongoDB connection error:", err));
+// Connect to MongoDB Atlas
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // API routes
 app.use("/api", routes);
 
-// Health check
+// Health check route
 app.get("/", (req, res) => {
   res.send("Employee Attendance System - Backend is running");
 });
