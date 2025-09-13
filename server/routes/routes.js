@@ -3,27 +3,20 @@ const router = express.Router();
 
 const userController = require("../controllers/userController");
 const attendanceController = require("../controllers/attendanceController");
-const ipMiddleware = require("../middleware/ipMiddleware"); 
 
-//  Public Routes
+
+router.get("/", (req, res) => {
+  res.status(401).json({ message: "Not authorized, no token" });
+});
+
+// User Routes
 router.post("/register", userController.register);
 router.post("/login", userController.login);
+router.get("/employees", userController.getEmployees);
+router.delete("/employees/:id", userController.deleteEmployee);
 
-//  Protected User Routes
-// Only logged-in user can see their own profile
-router.get("/me", ipMiddleware, userController.getProfile);
-
-// Admin-only (optional: check role inside controller)
-router.get("/employees", ipMiddleware, userController.getEmployees);
-router.delete("/employees/:id", ipMiddleware, userController.deleteEmployee);
-
-//  Protected Attendance Routes
-router.post("/attendance", ipMiddleware, attendanceController.markAttendance);
-
-// Employee can see only their own attendance
-router.get("/attendance/me", ipMiddleware, attendanceController.getMyAttendance);
-
-// Admin can see all attendance
-router.get("/attendance/all", ipMiddleware, attendanceController.getAllAttendance);
+// Attendance Routes
+router.post("/attendance", attendanceController.markAttendance);
+router.get("/attendance/all", attendanceController.getAllAttendance);
 
 module.exports = router;
