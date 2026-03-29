@@ -21,7 +21,6 @@ const allowedOrigins = [
   "http://localhost:3001",
 ];
 
-app.options("*", cors());
 
 app.use(cors({
   origin: function(origin, callback) {
