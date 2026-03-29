@@ -18,7 +18,10 @@ if (!MONGO_URI) {
 const allowedOrigins = [
   "https://zesty-dango-4ec5ee.netlify.app",
   "http://localhost:3000",
+  "http://localhost:3001",
 ];
+
+app.options("*", cors());
 
 app.use(cors({
   origin: function(origin, callback) {
